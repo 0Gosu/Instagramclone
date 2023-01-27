@@ -48,7 +48,7 @@ class ProfileController: UICollectionViewController {
         navigationItem.title = user.username
         collectionView.backgroundColor = .white
         collectionView.register(ProfileCell.self, forCellWithReuseIdentifier: cellIdentifier)
-        collectionView.register(profileHeader.self,
+        collectionView.register(ProfileHeader.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: headerIdentifier)
     }
@@ -70,7 +70,7 @@ extension ProfileController {
 //        print("헤더함수 호출")
         
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerIdentifier,
-                                                                     for: indexPath) as! profileHeader
+                                                                     for: indexPath) as! ProfileHeader
         header.delegate = self
         
         header.viewModel = ProfileHeaderViewModel(user: user)
@@ -104,4 +104,23 @@ extension ProfileController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: view.frame.width, height: 240)
     }
+}
+
+// MARK: - ProfileHeaderDelegate
+
+extension ProfileController : ProfileHeaderDelegate{
+    func header(_ ProfileHeader: ProfileHeader, didTapActionButtonFor user: User) {
+        
+        if user.isCurrentUser {
+            print( " edit 버튼 " )
+        } else if user.isFollowed {
+            print( "언팔로우 버튼 ")
+        }   else {
+            UserService.follow(uid: user.uid) { error in
+                print("Debug : 이미 팔료우 했음 ui 업데이트 필요")
+            }
+            
+        }
+    }
+    
 }

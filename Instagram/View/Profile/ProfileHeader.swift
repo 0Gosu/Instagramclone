@@ -9,11 +9,11 @@ import UIKit
 import SDWebImage
 
 protocol ProfileHeaderDelegate: AnyObject {
-    func header(_ ProfileHeader: profileHeader, didTapActionButtonFor user :User)
+    func header(_ ProfileHeader: ProfileHeader, didTapActionButtonFor user :User)
     
 }
     
-class profileHeader: UICollectionReusableView {
+class ProfileHeader: UICollectionReusableView {
     
     
     // MARK: - Properties
@@ -173,11 +173,4 @@ class profileHeader: UICollectionReusableView {
     }
 }
 
-// MARK: - ProfileHeaderDelegate
 
-extension ProfileController : ProfileHeaderDelegate{
-    func header(_ ProfileHeader: profileHeader, didTapActionButtonFor user: User) {
-        
-    }
-    
-}

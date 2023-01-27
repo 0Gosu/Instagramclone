@@ -35,7 +35,7 @@ struct UserService {
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
         COLLECTION_FOLLOWING.document( currentUid).collection("user-following").document(uid)
             .setData([:]) { error in
-                COLLECTION_FOLLOEWRS.document(uid).collection("user-followers").document(uid).setData([:],completion: completion)
+                COLLECTION_FOLLOEWRS.document(uid).collection("user-followers").document(currentUid).setData([:],completion: completion)
             }
     }
     
