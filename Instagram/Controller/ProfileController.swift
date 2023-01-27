@@ -114,10 +114,14 @@ extension ProfileController : ProfileHeaderDelegate{
         if user.isCurrentUser {
             print( " edit 버튼 " )
         } else if user.isFollowed {
-            print( "언팔로우 버튼 ")
+            UserService.unfollow(uid: user.uid) { error in
+                self.user.isFollowed = false
+                self.collectionView.reloadData()
+            }
         }   else {
             UserService.follow(uid: user.uid) { error in
-                print("Debug : 이미 팔료우 했음 ui 업데이트 필요")
+                self.user.isFollowed = true
+                self.collectionView.reloadData()
             }
             
         }
